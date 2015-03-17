@@ -4,6 +4,17 @@ using namespace std;
 
 int count=0;
 
+int check(string a,int index,int k)					
+{
+	bool re=true;													
+	for(int x=k;x<index;x++) 							 
+	{                                                      
+		if(a[x]==a[index]){re=false;break;}
+	
+	}
+	return re;
+}
+
 //Permutation Generator
 //permutate a[k]~a[m]
 void PG(string a,const int k,const int m){   
@@ -16,16 +27,17 @@ void PG(string a,const int k,const int m){
 	}
 	else{
 		int c=0;
-		for(int i=k;i<m;i++){
-			if(a[k]==a[i]){
-				i++;
-			}
-			swap(a[k],a[i]);
+		for(int index=k;index<m;index++){
+			if(check(a,index,k)){
+			swap(a[k],a[index]);
 			PG(a,k+1,m);
-			swap(a[k],a[i]);
+			swap(a[k],a[index]);
+			}
 		}
 	}
 }
+
+
 
 int main (){	
 	while(1){
