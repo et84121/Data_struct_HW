@@ -1,0 +1,4 @@
+4 abcd
+3 NCU
+5 aeiou
+0

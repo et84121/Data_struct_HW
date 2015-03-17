@@ -1,0 +1,4 @@
+4 XXYZ
+4 YXXZ
+5 XXXYY
+0
