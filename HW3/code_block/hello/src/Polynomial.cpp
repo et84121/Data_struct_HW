@@ -8,6 +8,7 @@ Polynomial::Polynomial()
     //ctor
     capacity = 1 ; 	   //size of termArray
     terms = 0;
+    unsorted = 0;
 }
 
 Polynomial::~Polynomial()
@@ -33,6 +34,24 @@ void Polynomial::print_all_terms_in_flie(std::ofstream *fout){
     }
    *fout<<std::endl;
 }
+
+void Polynomial::sort_out_terms(){
+    do{
+        Polynomial result;
+        for(int i = 0 ; i < terms ; i++){
+            if(termArray[i].exp == termArray[i+1].exp){
+                result.NewTerm(termArray[i].coef+termArray[i+1].coef,termArray[i].exp+termArray[i+1].exp);
+                unsorted = 1 ;
+            }
+        }
+        *this = result ;
+    }while(unsorted);
+
+}
+
+//void Polynomial::sort_terms(){
+//
+//}
 
 Polynomial Polynomial::Add(Polynomial b)
 {
@@ -64,9 +83,18 @@ Polynomial Polynomial::Add(Polynomial b)
 }
 
 Polynomial Polynomial::Mult(Polynomial b){
-    Polynomial c;
-
-    return c;
+    Polynomial result;
+    for(int multiplier_curser = 0 ; multiplier_curser < b.terms ; multiplier_curser++){
+        Polynomial c;
+        for(int multiplicand_curser = 0 ; multiplicand_curser < terms ;multiplicand_curser++){
+            c.NewTerm(termArray[multiplicand_curser].coef*b.termArray[multiplier_curser].coef,termArray[multiplicand_curser].exp*b.termArray[multiplier_curser].exp);
+        }
+        c.sort_out_terms();
+        c.print_all_terms();
+       // result = result.Add(c);
+    }
+  //  result.print_all_terms();
+    return result;
 }
 
 void Polynomial::NewTerm(const float theCoeff, const int theExp)

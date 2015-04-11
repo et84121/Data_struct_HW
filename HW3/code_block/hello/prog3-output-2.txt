@@ -1,0 +1,3 @@
+a polynomial:4X^0 + -5X^0 + 3X^0 
+b polynomial:9X^0 + -7X^0 
+c polynomial:13X^0 + -12X^0 + 3X^0 

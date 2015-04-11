@@ -12,6 +12,7 @@ int main()
     Polynomial a ;
     Polynomial b ;
     Polynomial c ;
+//    Polynomial d ;
 
     string input_file_name="prog3-input-.txt";
 	string output_file_name="prog3-output-.txt";
@@ -41,16 +42,24 @@ int main()
     c = a.Add(b);
     cout<<"a polynomial:";
     fout<<"a polynomial:";
+//    a.sort_out_terms();
     a.print_all_terms();
     a.print_all_terms_in_flie(&fout);
     cout<<"b polynomial:";
     fout<<"b polynomial:";
+  //  b.sort_out_terms();
     b.print_all_terms();
     b.print_all_terms_in_flie(&fout);
     cout<<"c polynomial:";
     fout<<"c polynomial:";
     c.print_all_terms();
     c.print_all_terms_in_flie(&fout);
+//    c.sort_out_terms();
+//    c.print_all_terms();
+    cout<<"d_mult polynomial:";
+ //   d = a.Mult(b);
+
+   // d.print_all_terms();
 
     return 0;
 }

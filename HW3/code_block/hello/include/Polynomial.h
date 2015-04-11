@@ -23,11 +23,14 @@ class Polynomial
 		void NewTerm(const float theCoeff, const int theExp);
 		void print_all_terms();
 		void print_all_terms_in_flie(std::ofstream *fout);
+		void sort_out_terms();
+//		void sort_terms();
     protected:
     private:
         Term *termArray;  //array of nonzero terms
 		int capacity ; 	   //size of termArray
 		int terms ;		   //# of nonzero terms
+		int unsorted;
 };
 
 
