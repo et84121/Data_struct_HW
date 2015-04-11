@@ -1,5 +1,7 @@
 #ifndef POLYNOMIAL_H
 #define POLYNOMIAL_H
+#include <fstream>
+
 
 class Polynomial;
 
@@ -19,6 +21,8 @@ class Polynomial
         Polynomial Add(Polynomial poly);
 		Polynomial Mult(Polynomial poly);
 		void NewTerm(const float theCoeff, const int theExp);
+		void print_all_terms();
+		void print_all_terms_in_flie(std::ofstream *fout);
     protected:
     private:
         Term *termArray;  //array of nonzero terms
