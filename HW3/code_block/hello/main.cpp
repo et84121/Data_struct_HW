@@ -14,6 +14,7 @@ int main()
     Polynomial c ;
 //    Polynomial d ;
 
+    //開檔start
     string input_file_name="prog3-input-.txt";
 	string output_file_name="prog3-output-.txt";
 	cout<<"input the order of file"<<endl;
@@ -24,12 +25,13 @@ int main()
 	ofstream fout(&output_file_name[0]);
 	if(!fin) {cout<<"File read Error!!"<<endl;}
 	if(!fout){cout<<"File write Error!!"<<endl;}
+    //開檔end
+    cout << "Hello world!" << endl
+         << "start to add polynomial" <<endl;
+    //讀檔
+    fin >> terms;//讀取terms 數目
 
-    cout << "Hello world!" << endl;
-    cout << "How many terms in a" << endl;
-    fin >> terms;
-
-    for(int counter = 0 ; counter < terms ; counter++){
+    for(int counter = 0 ; counter < terms ; counter++){ //建立a 多項式
         fin >> coef >> exp ;
         a.NewTerm(coef,exp);
     }

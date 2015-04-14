@@ -38,6 +38,7 @@ void Polynomial::print_all_terms_in_flie(std::ofstream *fout){
 void Polynomial::sort_out_terms(){
     do{
         Polynomial result;
+        unsorted = 0 ;
         for(int i = 0 ; i < terms ; i++){
             if(termArray[i].exp == termArray[i+1].exp){
                 result.NewTerm(termArray[i].coef+termArray[i+1].coef,termArray[i].exp+termArray[i+1].exp);
