@@ -1,0 +1,9 @@
+.row 8
+.column 9
+.pin 2
+pin1 6 1
+pin2 2 8
+.obs 3
+obs1 7 4 7 4
+obs2 0 2 6 2
+obs3 1 6 5 7

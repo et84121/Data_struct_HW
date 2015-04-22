@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1429631624 source:c:\users\´Ü´Å\documents\github\data_struct_hw\hw4\src\plane.cpp
+	"plane.h"
+
+1429630483 c:\users\´Ü´Å\documents\github\data_struct_hw\hw4\include\plane.h
+
+1429631661 source:c:\users\´Ü´Å\documents\github\data_struct_hw\hw4\src\point.cpp
+	"point.h"
+	<iostream>
+
+1429625873 c:\users\´Ü´Å\documents\github\data_struct_hw\hw4\include\point.h
+
+1429631303 source:c:\users\´Ü´Å\documents\github\data_struct_hw\hw4\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	"point.h"
+	"plane.h"
+
