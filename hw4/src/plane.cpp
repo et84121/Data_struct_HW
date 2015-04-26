@@ -18,8 +18,6 @@ void plane::write_into_map(point *a_map,int row,int column){
             &&  (plane::R_x>=(a))&&((a)>=plane::L_x) )
                 {
                     (a_map+a*(column)+b)->data = 1;
-                    (a_map+a*(column)+b)->x = a;
-                    (a_map+a*(column)+b)->y = b;
                 }
         }
     }

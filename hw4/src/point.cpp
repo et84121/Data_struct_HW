@@ -1,5 +1,6 @@
 #include "point.h"
-#include <iostream>
+
+
 point::point()
 {
     //ctor
@@ -16,9 +17,6 @@ void point::write_into_map(point *a_map,int row,int column){
             if( b==point::y && a==point::x)
                 {
                     (a_map+a*(column)+b)->data = 2;
-                    (a_map+a*(column)+b)->x = a;
-                    (a_map+a*(column)+b)->y = b;
-//                    std::cout<<"pin row:"<<a<<" column:"<<b<<std::endl;
                 }
         }
     }
