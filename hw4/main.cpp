@@ -20,8 +20,10 @@ point *_map;
 //- - - - - -第三階段用的變數
 queue<point> wave_f; //wave front
 vector<point> answer_route;
+vector<point> answer_route_line;
 int finded = 0;//有沒有找到另一個點
 int route_finded = 0;
+
 
 int main()
 {
@@ -102,10 +104,9 @@ int main()
     //將整張地圖都寫入0
     for (int a=0;a<row;a++){
         for (int b=0;b<column;b++){
-            (_map+a*(column)+b)->data = 0;
-            (_map+a*(column)+b)->x = b;
-            (_map+a*(column)+b)->y = a;
-
+            _map[(a*column)+b].data = 0;
+            _map[(a*column)+b].x = b;
+            _map[(a*column)+b].y = a;
         }
     }
     //標示障礙物
@@ -115,6 +116,13 @@ int main()
     //標示點
     for (int a=0;a<pin_num;a++){
         pin[a].write_into_map(_map,row,column);
+    }
+
+    for (int a=0;a<row;a++){
+        for (int b=0;b<column;b++){
+            _map[(a*column)+b].x = b;
+            _map[(a*column)+b].y = a;
+        }
     }
 
     //印出地圖
@@ -127,7 +135,7 @@ int main()
     }
 
 
-    //開始找尋起終點  編碼為 5566
+    //開始找尋起終點
     cout<<endl<<"- - - - -"<<endl;
 
     wave_f.push(_map[pin[0].y*(column)+pin[0].x]);
@@ -223,7 +231,7 @@ int main()
     cout<<endl<<"- - - - -"<<endl;
     //逆解路徑
     answer_route.push_back(wave_f.front());
-    for(int q=0;route_finded == 0;q++){
+    while(route_finded == 0){
         int _x = answer_route.back().x;
         int _y = answer_route.back().y;
         int route_data = answer_route.back().data;
@@ -299,6 +307,33 @@ int main()
                 }
             }
     }
+
+    //插入頭尾的點
+    answer_route.insert(answer_route.begin(), _map[pin[1].y*column+pin[1].x] );
+    answer_route.insert(answer_route.end(), _map[pin[0].y*column+pin[0].x] );
+
+    for(unsigned int a=1;a<answer_route.size();a++){
+        if(answer_route[a].y == answer_route[a+1].y  && answer_route[a-1].x == answer_route[a].x){
+            cout<<"change!! x:"<<answer_route[a].y<<" y:"<<answer_route[a].x<<endl;
+            answer_route_line.push_back(answer_route[a]);
+        }
+        if(answer_route[a].x == answer_route[a+1].x  && answer_route[a-1].y == answer_route[a].y){
+            cout<<"change!! x:"<<answer_route[a].y<<" y:"<<answer_route[a].x<<endl;
+            answer_route_line.push_back(answer_route[a]);
+        }
+    }
+
+    //加頭加尾
+    answer_route_line.insert(answer_route_line.begin(),pin[1]);
+    cout<<"_map[(pin[1].y*column)+pin[1].x] x:"<<_map[(pin[1].y*column)+pin[1].x].x<<" y:"<<_map[(pin[1].y*column)+pin[1].x].y<<" index:"<<(pin[1].y*column)+pin[1].x<<endl;
+    cout<<"pin[1] x:"<<pin[1].x<<" y:"<<pin[1].y<<endl;
+    answer_route_line.insert(answer_route_line.end(),_map[(pin[0].y*column)+pin[0].x]);
+
+    for(unsigned int a = 0 ;a<answer_route_line.size();a++){
+        cout<<"ans x:"<<answer_route_line[a].y<<" y:"<<answer_route_line[a].x<<endl;
+    }
+
+    cout<<".length "<<answer_route.size()<<endl;
 
 
     return 0;
