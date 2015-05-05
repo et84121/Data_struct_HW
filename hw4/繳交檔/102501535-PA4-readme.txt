@@ -1,0 +1,6 @@
+開發環境
+Windows 8.1 
+使用的IDE為 Code::Block 13.12  32bits版
+所使用的Compiler為 GUN GCC Compiler (MinGW-Minimalist GNU for Windows)
+版本控制使用Git 
+Github 連結：https://github.com/et84121/Data_struct_HW
