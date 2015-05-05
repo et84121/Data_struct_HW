@@ -44,7 +44,8 @@ int main()
     //檢查是否開流成功
     cout << "program start!" << endl;
 
-    //while(obs_num == 0)
+    //開始讀入資料
+
     for(int a=0;a<4;a++)
     {
         //建立區域變數(儲存輸入值用)
@@ -62,7 +63,7 @@ int main()
             //將檔案中的資訊存入 點_陣列 中
             for(int b=0;b<pin_num;b++){
                 int x,y;
-                fin>>in>>x>>y;
+                fin>>in>>y>>x;
                 pin[b].x = x;
                 pin[b].y = y;
             }
@@ -72,7 +73,7 @@ int main()
             obs = new plane[obs_num];
             for(int b=0;b<obs_num;b++){
                 int L_x,L_y,R_x,R_y;
-                fin>>in>>L_x>>L_y>>R_x>>R_y;
+                fin>>in>>L_y>>L_x>>R_y>>R_x;
                 obs[b].L_x = L_x;
                 obs[b].L_y = L_y;
                 obs[b].R_x = R_x;
@@ -94,7 +95,8 @@ int main()
         cout<<" obs"<<a<<"_RightDown x:"<<obs[a].R_x<<" y:"<<obs[a].R_y<<endl;
     }
     cout<<"- - -"<<endl;
-    //[end]
+    //[end]輸出所取得的資訊
+
 
     //地圖建立
     /*  0->可以走的地
@@ -117,19 +119,11 @@ int main()
     for (int a=0;a<pin_num;a++){
         pin[a].write_into_map(_map,row,column);
     }
-
-    for (int a=0;a<row;a++){
-        for (int b=0;b<column;b++){
-            _map[(a*column)+b].x = b;
-            _map[(a*column)+b].y = a;
-        }
-    }
-
     //印出地圖
     cout<<endl;
     for (int a=0;a<row;a++){
         for(int b=0;b<column;b++){
-            cout<< (_map+a*(column)+b)->data<< setw(2) <<" ";
+            cout<< _map[a*(column)+b].data<< setw(2) <<" ";
         }
         cout<<endl;
     }
@@ -138,7 +132,9 @@ int main()
     //開始找尋起終點
     cout<<endl<<"- - - - -"<<endl;
 
+    //將起點推入佇列中
     wave_f.push(_map[pin[0].y*(column)+pin[0].x]);
+    //當還沒找到終點時，不斷重複迴圈
     while(finded == 0){
         int _x = wave_f.front().x;
         int _y = wave_f.front().y;
@@ -151,12 +147,15 @@ int main()
         if( ((_x+1)>=0)&&((_x+1)<column)
         &&  ((_y)>=0) &&((_y)<row) )  //邊界檢查
             {
+                //檢查是否為終點
                 if(_map[_index].x == pin[1].x && _map[_index].y == pin[1].y)
                 {
                         finded = 1;
                         break;
                 }
-                if(_map[_index].data == 0) //檢查是否為可以行走之路
+                //檢查是否為可以行走之路
+                //可以走的話  就行走並標上號碼
+                if(_map[_index].data == 0)
                 {
                     _map[_index].data = _map[(_y)*(column)+(_x)].data + 1 ;
                     wave_f.push(_map[_index]);
@@ -214,11 +213,13 @@ int main()
                     cout<<"push 下 _index:"<<_index<<" x:"<<_map[_index].x<<" y:"<<_map[_index].y<<" data:"<<_map[_index].data<<endl;
                 }
             }
-        //if(wave_f.empty()!=1)
+        //if(wave_f.empty())
+            //推掉已經檢查過的點
             wave_f.pop();
     }
 
     cout<<endl<<"- - - - -"<<endl;
+
     //印出改變後的地圖
     cout<<"  ";
     for (int a=0;a<row;a++){
@@ -227,10 +228,13 @@ int main()
         }
         cout<<endl;
     }
+    //印出改變後的地圖[End]
+
 
     cout<<endl<<"- - - - -"<<endl;
-    //逆解路徑
+    //逆解路徑 answer_route 為一個 vector 容器
     answer_route.push_back(wave_f.front());
+    //當還沒找到起點時  持續進行此迴圈
     while(route_finded == 0){
         int _x = answer_route.back().x;
         int _y = answer_route.back().y;
@@ -244,11 +248,13 @@ int main()
         if( ((_x+1)>=0)&&((_x+1)<column)
         &&  ((_y)>=0) &&((_y)<row) )  //邊界檢查
             {
+                //檢查是否找到起點
                 if(_map[_index].x == pin[0].x && _map[_index].y == pin[0].y)
                 {
                     route_finded = 1;
                     break;
                 }
+                //逆解編碼
                 if(_map[_index].data == route_data-1)
                 {
                     answer_route.push_back(_map[_index]);
@@ -311,7 +317,7 @@ int main()
     //插入頭尾的點
     answer_route.insert(answer_route.begin(), _map[pin[1].y*column+pin[1].x] );
     answer_route.insert(answer_route.end(), _map[pin[0].y*column+pin[0].x] );
-
+    //檢查轉彎的點  把轉彎的poing 抓出來
     for(unsigned int a=1;a<answer_route.size();a++){
         if(answer_route[a].y == answer_route[a+1].y  && answer_route[a-1].x == answer_route[a].x){
             cout<<"change!! x:"<<answer_route[a].y<<" y:"<<answer_route[a].x<<endl;
@@ -325,15 +331,15 @@ int main()
 
     //加頭加尾
     answer_route_line.insert(answer_route_line.begin(),pin[1]);
-    cout<<"_map[(pin[1].y*column)+pin[1].x] x:"<<_map[(pin[1].y*column)+pin[1].x].x<<" y:"<<_map[(pin[1].y*column)+pin[1].x].y<<" index:"<<(pin[1].y*column)+pin[1].x<<endl;
-    cout<<"pin[1] x:"<<pin[1].x<<" y:"<<pin[1].y<<endl;
     answer_route_line.insert(answer_route_line.end(),_map[(pin[0].y*column)+pin[0].x]);
+
+    cout<<".edge "<<answer_route_line.size()-1<<endl;
 
     for(unsigned int a = 0 ;a<answer_route_line.size();a++){
         cout<<"ans x:"<<answer_route_line[a].y<<" y:"<<answer_route_line[a].x<<endl;
     }
 
-    cout<<".length "<<answer_route.size()<<endl;
+    cout<<".length "<<answer_route.size()-1<<endl;
 
 
     return 0;
