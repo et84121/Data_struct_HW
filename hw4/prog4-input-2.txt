@@ -1,0 +1,12 @@
+.row 16
+.column 16
+.pin 2
+pin1 13 5
+pin2 13 10
+.obs 6
+obs1 2 1 2 13
+obs2 8 0 8 1
+obs3 8 3 8 11
+obs4 8 13 8 15
+obs5 3 7 7 7
+obs6 9 7 15 8

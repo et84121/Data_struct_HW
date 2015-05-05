@@ -232,7 +232,10 @@ int main()
 
 
     cout<<endl<<"- - - - -"<<endl;
-    //逆解路徑 answer_route 為一個 vector 容器
+
+
+//逆解路徑 answer_route 為一個 vector 容器
+
     answer_route.push_back(wave_f.front());
     //當還沒找到起點時  持續進行此迴圈
     while(route_finded == 0){
@@ -255,7 +258,7 @@ int main()
                     break;
                 }
                 //逆解編碼
-                if(_map[_index].data == route_data-1)
+                if(_map[_index].data == route_data-1 && route_data -1 != answer_route.back().data)
                 {
                     answer_route.push_back(_map[_index]);
                     cout<<"push 左 _index:"<<_index<<" x:"<<_map[_index].x<<" y:"<<_map[_index].y<<" data:"<<_map[_index].data<<endl;
@@ -272,7 +275,7 @@ int main()
                     route_finded = 1;
                     break;
                 }
-                if(_map[_index].data == route_data-1)
+                if(_map[_index].data == route_data-1 && route_data -1 != answer_route.back().data)
                 {
                     answer_route.push_back(_map[_index]);
                     cout<<"push 右 _index:"<<_index<<" x:"<<_map[_index].x<<" y:"<<_map[_index].y<<" data:"<<_map[_index].data<<endl;
@@ -289,7 +292,7 @@ int main()
                     route_finded = 1;
                     break;
                 }
-                if(_map[_index].data == route_data-1)
+                if(_map[_index].data == route_data-1 && route_data -1 != answer_route.back().data)
                 {
                     answer_route.push_back(_map[_index]);
                     cout<<"push 上 _index:"<<_index<<" x:"<<_map[_index].x<<" y:"<<_map[_index].y<<" data:"<<_map[_index].data<<endl;
@@ -306,7 +309,7 @@ int main()
                     route_finded = 1;
                     break;
                 }
-                if(_map[_index].data == route_data-1)
+                if(_map[_index].data == route_data-1 && route_data -1 != answer_route.back().data)
                 {
                     answer_route.push_back(_map[_index]);
                     cout<<"push 下 _index:"<<_index<<" x:"<<_map[_index].x<<" y:"<<_map[_index].y<<" data:"<<_map[_index].data<<endl;
@@ -335,12 +338,21 @@ int main()
 
     cout<<".edge "<<answer_route_line.size()-1<<endl;
 
-    for(unsigned int a = 0 ;a<answer_route_line.size();a++){
-        cout<<"ans x:"<<answer_route_line[a].y<<" y:"<<answer_route_line[a].x<<endl;
+    for(int a = (int)answer_route_line.size()-2;a>=0;a--){
+        cout<<answer_route_line[a+1].y<<" "<<answer_route_line[a+1].x<<" "<<answer_route_line[a].y<<" "<<answer_route_line[a].x<<endl;
     }
 
     cout<<".length "<<answer_route.size()-1<<endl;
 
+    //完成指定格式的資料輸出
+
+    fout<<".edge "<<answer_route_line.size()-1<<endl;
+    for(int a = (int)answer_route_line.size()-2;a>=0;a--){
+        fout<<answer_route_line[a+1].y<<" "<<answer_route_line[a+1].x<<" "<<answer_route_line[a].y<<" "<<answer_route_line[a].x<<endl;
+    }
+    fout<<".length "<<answer_route.size()-1<<endl;
+
+    //完成指定格式的資料輸出[End]
 
     return 0;
 }
