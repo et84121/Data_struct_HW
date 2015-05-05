@@ -221,7 +221,7 @@ int main()
     cout<<endl<<"- - - - -"<<endl;
 
     //印出改變後的地圖
-    cout<<"  ";
+    cout<<" ";
     for (int a=0;a<row;a++){
         for(int b=0;b<column;b++){
             cout<< (_map+a*(column)+b)->data << dec << setw(3) ;
@@ -356,4 +356,3 @@ int main()
 
     return 0;
 }
-
